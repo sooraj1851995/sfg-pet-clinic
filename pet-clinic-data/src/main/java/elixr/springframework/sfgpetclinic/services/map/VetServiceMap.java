@@ -2,10 +2,11 @@ package elixr.springframework.sfgpetclinic.services.map;
 
 import elixr.springframework.sfgpetclinic.model.Vet;
 import elixr.springframework.sfgpetclinic.services.CrudService;
+import elixr.springframework.sfgpetclinic.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
@@ -30,4 +31,5 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements Crud
     public Vet findById(Long id) {
         return super.findById(id);
     }
+
 }
