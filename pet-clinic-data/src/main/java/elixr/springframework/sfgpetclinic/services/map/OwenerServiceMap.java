@@ -3,9 +3,11 @@ package elixr.springframework.sfgpetclinic.services.map;
 import elixr.springframework.sfgpetclinic.model.Owner;
 import elixr.springframework.sfgpetclinic.services.CrudService;
 import elixr.springframework.sfgpetclinic.services.OwnerService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class OwenerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
