@@ -1,7 +1,8 @@
 package elixr.springframework.sfgpetclinic.services.map;
 
+import elixr.springframework.sfgpetclinic.model.Specialty;
 import elixr.springframework.sfgpetclinic.model.Vet;
-import elixr.springframework.sfgpetclinic.services.CrudService;
+import elixr.springframework.sfgpetclinic.services.SpecialityService;
 import elixr.springframework.sfgpetclinic.services.VetService;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,13 @@ import java.util.Set;
 
 @Service
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
+
+    private final SpecialityService specialityService;
+
+    public VetServiceMap(SpecialityService specialityService) {
+        this.specialityService = specialityService;
+    }
+
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
@@ -26,7 +34,23 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
 
     @Override
     public Vet save(Vet object) {
-        return super.save(object);
+        if(object != null){
+
+            if(object.getSpecialties() !=null){
+
+                object.getSpecialties().forEach(specialty -> {
+                    if(specialty.getId() == null){
+                        Specialty savedSpeciality = specialityService.save(specialty);
+                        specialty.setId(savedSpeciality.getId());
+                    }
+                });
+            }
+            return super.save(object);
+        }
+        else {
+            return null;
+        }
+
     }
 
     @Override
